@@ -1,6 +1,7 @@
 "use client"
 
 import { useState } from "react"
+import { useRouter } from "next/navigation" // 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Textarea } from "@/components/ui/textarea"
@@ -16,9 +17,15 @@ export default function SurveyPage() {
     notes: "",
   })
 
+  const router = useRouter() // 
+
   const handleRatingChange = (category: string, rating: number) => {
     setResponses((prev) => ({ ...prev, [category]: rating }))
   }
+
+  const handleSubmit = () => { // 
+    router.push("/dashboard") // 
+  } // 
 
   const StarRating = ({ category, value, label }: { category: string; value: number; label: string }) => (
     <div className="space-y-3">
@@ -134,6 +141,7 @@ export default function SurveyPage() {
           <Button
             className="w-full h-12 text-base"
             disabled={!responses.mood || !responses.energy || !responses.sleep || !responses.stress}
+            onClick={handleSubmit} // 
           >
             Guardar respuestas
           </Button>
